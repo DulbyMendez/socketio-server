@@ -3,7 +3,7 @@
 
 //io()
 
-const socket = io()
+const socket = io('https://socketio-server-olive.vercel.app/')
 
 //DOM element
 let message = document.getElementById('message')
@@ -14,11 +14,6 @@ let actions = document.getElementById('actions')
 
 
 btnSend.addEventListener('click', ()=>{
-    console.log({
-        message: message.value,
-        username: username.value
-    });
-    
     socket.emit('chat:message', {
         message: message.value,
         username: username.value
@@ -27,13 +22,11 @@ btnSend.addEventListener('click', ()=>{
 })
 
 message.addEventListener('keypress', ()=>{
-    console.log(username.value);
     socket.emit('chat:typing', username.value)
 })
 
 //data es un objeto que envía el servidor 
 socket.on('chat:message', (data)=>{
-    console.log('data', data);
     actions.innerHTML = ''
     output.innerHTML += `<p>
         <strong>${data.username}</strong>: ${data.message}

@@ -18,8 +18,6 @@ const io = SocketIO(server);
 
 // websocket
 io.on('connection', (socket)=>{
-    console.log('New connection', socket.id);
-
     socket.on('chat:message', (data)=>{
         console.log('datos: ', data);
         io.sockets.emit('chat:message', data);
@@ -29,7 +27,3 @@ io.on('connection', (socket)=>{
         socket.broadcast.emit('chat:typing', data);
     })
 })
-
-
-
-
