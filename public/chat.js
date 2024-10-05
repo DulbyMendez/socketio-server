@@ -3,7 +3,7 @@
 
 //io()
 
-const socket = io('https://socketio-server-olive.vercel.app/')
+const socket = io()
 
 //DOM element
 let message = document.getElementById('message')
