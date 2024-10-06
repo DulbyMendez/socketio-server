@@ -1,9 +1,7 @@
 //solo funciona si lo estas desplegando en el mismo dominio,
 //sino se debe pasar por parámetro
 
-//io()
-
-const socket = io()
+//const socket = io()
 
 //DOM element
 let message = document.getElementById('message')
@@ -11,7 +9,6 @@ let username = document.getElementById('username')
 let btnSend = document.getElementById('send')
 let output = document.getElementById('output')
 let actions = document.getElementById('actions')
-
 
 btnSend.addEventListener('click', ()=>{
     socket.emit('chat:message', {
@@ -21,7 +18,11 @@ btnSend.addEventListener('click', ()=>{
     message.value = ''
 })
 
-message.addEventListener('keypress', ()=>{
+message.addEventListener('keydown', (event)=>{
+    if (event.key === 'Enter') {
+        event.preventDefault()
+        btnSend.click()
+    }
     socket.emit('chat:typing', username.value)
 })
 
@@ -31,7 +32,6 @@ socket.on('chat:message', (data)=>{
     output.innerHTML += `<p>
         <strong>${data.username}</strong>: ${data.message}
     </p>`
-    
 })
 
 socket.on('chat:typing', (data)=>{

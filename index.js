@@ -6,7 +6,7 @@ const express = require("express");
 const app = express();
 const server = http.createServer(app);
 
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3100);
 
 //static files
 app.use(express.static(path.join(__dirname, "public")));
@@ -23,7 +23,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat:message", (data) => {
-    console.log("datos: ", data);
     io.sockets.emit("chat:message", data);
   });
 
@@ -33,7 +32,6 @@ io.on("connection", (socket) => {
 });
 
 //start the server
-//app.listen(app.get("port"), () => {
 server.listen(app.get("port"), () => {
   console.log("Server on port: ", app.get("port"));
 });
